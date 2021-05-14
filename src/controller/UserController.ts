@@ -29,4 +29,32 @@ export default class UserController {
 
   };
 
+
+  // registers a new user
+  async saveUser(req: Request, res: Response) {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Missing entries. Try again.' });
+    }
+
+    try {
+      const usersRepository = getRepository(User);
+      const user = await usersRepository.findOne({
+        where: { email }
+      });
+
+      if (user) return res.status(400).json({ message: 'Email already exists' });
+
+      const userData = { name, email, password };
+
+      await usersRepository.save(userData);
+      res.status(201).json(userData);
+
+    } catch (err) {
+      res.status(500).send({ error: `Error while trying to save: ${err}.` });
+    }
+
+  };
+
 };
