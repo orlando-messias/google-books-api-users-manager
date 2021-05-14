@@ -57,4 +57,25 @@ export default class UserController {
 
   };
 
+
+  // finds user by id
+  async getUserById(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const usersRepository = getRepository(User);
+      const user = await usersRepository.findOne({
+        where: { id }
+      });
+
+      if (!user) return res.status(404).json({ message: "User not found" });
+
+      return res.status(200).json(user);
+
+    } catch (err) {
+      res.status(400).send({ error: `Error while loading data: ${err}.` });
+    }
+
+  };
+
 };
