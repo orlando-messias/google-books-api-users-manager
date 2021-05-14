@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import { connection } from './config/db';
 import usersRoute from './routes/users';
+import favoritesRoutes from './routes/favorites';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,6 +16,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/users', usersRoute);
+app.use('/favorites', favoritesRoutes);
 
 connection();
 
