@@ -78,4 +78,34 @@ export default class UserController {
 
   };
 
+
+  // updates user data
+  async updateUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Missing entries. Try again.' });
+    }
+
+    try {
+      const usersRepository = getRepository(User);
+      const user = await usersRepository.findOne({
+        where: { id }
+      });
+
+      if (!user) return res.status(404).json({ message: 'User not found' });
+
+      const userData = { name, email, password };
+
+      usersRepository.merge(user, userData);
+      const results = await usersRepository.save(user);
+      return res.status(201).json(results);
+
+    } catch (err) {
+      res.status(500).send({ error: `Error while trying to save: ${err}.` });
+    }
+
+  };
+
 };
