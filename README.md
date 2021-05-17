@@ -24,7 +24,6 @@ A API utiliza a porta **3001**.
 ### :hammer_and_wrench: Tecnologias
 - [NodeJS](https://nodejs.org/en)
 - [Express](https://expressjs.com)
-- [JWT](https://jwt.io/)
 - [Typeorm](https://typeorm.io/)
 - [MySql](https://www.mysql.com/)
 
