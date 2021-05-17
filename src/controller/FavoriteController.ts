@@ -25,7 +25,17 @@ export default class FavoriteController {
 
   // set favorite or not favorite to a book by user
   async setFavoriteBookByUserId(req: Request, res: Response) {
-    const { userId, bookId, title, description, thumbnail, infoLink, publishedDate } = req.body;
+    const {
+      userId,
+      bookId,
+      title,
+      description,
+      thumbnail,
+      language,
+      publishedDate,
+      pageCount } = req.body;
+
+      console.log(req.body);
 
     try {
       const favoriteBookRepo = getRepository(FavoriteBook);
@@ -39,8 +49,9 @@ export default class FavoriteController {
           title,
           description,
           thumbnail,
-          infoLink,
-          publishedDate
+          language,
+          publishedDate,
+          pageCount
         });
         return res.status(201).json({ action: 'inserted' });
       }

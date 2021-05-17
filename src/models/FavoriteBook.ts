@@ -19,20 +19,23 @@ export default class FavoriteBook {
 	@Column()
 	bookId: string;
 
-	@Column()
+	@Column({ length: 500 })
 	title: string;
 
-	@Column()
+	@Column({ length: 2000, nullable: true, default: null })
 	description: string;
 
-	@Column({ type: 'date' })
+	@Column({ nullable: true, default: null })
 	publishedDate: string;
 
 	@Column()
 	thumbnail: string;
 
-	@Column()
-	infoLink: string;
+	@Column({ nullable: true, default: null })
+	pageCount: string;
+
+	@Column({ nullable: true, default: null })
+	language: string;
 
 	// optionally not shown in queries
 	@CreateDateColumn({ select: false })
